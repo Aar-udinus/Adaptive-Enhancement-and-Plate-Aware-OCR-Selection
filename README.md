@@ -12,30 +12,19 @@ Automatic License Plate Recognition (ALPR) systems often suffer performance degr
 
 The proposed pipeline consists of:
 
-Global dehazing using Dark Channel Prior (DCP) (dataset-level)
+1.Global dehazing using Dark Channel Prior (DCP) (dataset-level)
 
-License plate detection and cropping using YOLOv11
+2.License plate detection and cropping using YOLOv11
 
-Adaptive lightweight enhancement on cropped plate regions
+3.Adaptive lightweight enhancement on cropped plate regions
 
 Multi-branch OCR using PaddleOCR
 
-Plate-aware scoring and selection to obtain the final plate output
+5.Plate-aware scoring and selection to obtain the final plate output
 
-🧠 Method Pipeline Input Image (Hazy Scene) | YOLOv11 | Plate Crop (DCP-applied) | ┌───────────────┬────────────────────┬─────────────────────────┐
+🧠 Method Pipeline Input Image (Hazy Scene) | YOLOv11 | Plate Crop (DCP-applied) 
 
-| | |
-
-RAW CLAHE-light SR2× + CLAHE-light
-
-| | |
-
-PaddleOCR PaddleOCR PaddleOCR
-
-| | |
-
-└───────────────┴────────────────────┴───────────────┐ Plate-aware Scoring & Selection (structure, ambiguity, confidence) | Final Plate Output
-
+<img src="https://github.com/Aar-udinus/Adaptive-Enhancement-and-Plate-Aware-OCR-Selection/blob/main/OCR-Aware-Selection.png">
 🔧 Adaptive Enhancement Variants
 
 Instead of enforcing a single preprocessing strategy, the system generates three lightweight enhancement variants for each cropped plate image:
@@ -72,29 +61,37 @@ The proposed adaptive method achieves:
 
 These results outperform fixed preprocessing baselines such as direct crop OCR and super-resolution-only pipelines under hazy conditions.
 
-🗂️ Repository Structure ├── data/ │ ├── ground_truth.txt │ └── sample_images/ ├── detection/ │ └── yolov11_plate_detection.py ├── enhancement/ │ ├── clahe_light.py │ └── sr2x_clahe.py ├── ocr/ │ └── paddleocr_inference.py ├── scoring/ │ └── plate_aware_selection.py ├── evaluation/ │ └── evaluate_results.py ├── results/ │ └── output_csv/ └── README.md
+🗂️ Repository Structure 
+├── data/ 
+│ ├── ground_truth.txt
+│ └── sample_images/ 
+├── detection/ 
+│ └── yolov11_plate_detection.py 
+├── enhancement/ 
+│ ├── clahe_light.py 
+│ └── sr2x_clahe.py
+├── ocr/ │ 
+└── paddleocr_inference.py 
+├── scoring/ 
+│ └── plate_aware_selection.py 
+├── evaluation/ 
+│ └── evaluate_results.py 
+├── results/ 
+│ └── output_csv/ 
+└── README.md
 
 ⚙️ Environment Setup Python >= 3.9 opencv-python paddleocr paddlepaddle torch numpy
 
 ⚠️ Note: The project is tested on CPU-based environments. GPU acceleration is optional but not required.
 
 ▶️ How to Run
+1. Processing with Dark Chanel Prior (DCP),Detect and crop license plates 
+   processing DCP and Yolov11.ipynb
 
-Detect and crop license plates
-
-python detection/yolov11_plate_detection.py
-
-Apply adaptive enhancement and OCR
-
-python ocr/paddleocr_inference.py
-
-Select final OCR result
-
-python scoring/plate_aware_selection.py
-
-Evaluate performance
-
-python evaluation/evaluate_results.py
+2.Apply adaptive enhancement and Select final OCR result
+  Adaptive-Aware-Selection.ipynb
+3.Evaluate performance
+Adaptive-Aware-Selection.ipynb
 
 📁 Dataset
 
@@ -108,7 +105,7 @@ Ground truth labels are provided in text format for evaluation.
 
 If you use this code in your research, please cite:
 
-@article{AdaptiveALPR2025, title={Adaptive Enhancement and Plate-Aware OCR Selection for Robust License Plate Recognition in Hazy Conditions}, author={Author Name}, journal={Journal Name}, year={2025} }
+@article{AdaptiveALPR2025, title={Adaptive Enhancement and Plate-Aware OCR Selection for Robust License Plate Recognition in Hazy Conditions}, author={Arafat}, journal={Journal Name}, year={2025} }
 
 📜 License
 
