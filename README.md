@@ -12,13 +12,13 @@ Automatic License Plate Recognition (ALPR) systems often suffer performance degr
 
 The proposed pipeline consists of:
 
-1.Global dehazing using Dark Channel Prior (DCP) (dataset-level)
+- Global dehazing using Dark Channel Prior (DCP) (dataset-level)
 
-2.License plate detection and cropping using YOLOv11
+- License plate detection and cropping using YOLOv11
 
-3.Adaptive lightweight enhancement on cropped plate regions,Multi-branch OCR using PaddleOCR
+- Adaptive lightweight enhancement on cropped plate regions,Multi-branch OCR using PaddleOCR
 
-5.Plate-aware scoring and selection to obtain the final plate output
+- Plate-aware scoring and selection to obtain the final plate output
 
 🧠 Method Pipeline Input Image (Hazy Scene) | (DCP-applied) | YOLOv11 | Plate Crop 
 
@@ -27,23 +27,23 @@ The proposed pipeline consists of:
 
 Instead of enforcing a single preprocessing strategy, the system generates three lightweight enhancement variants for each cropped plate image:
 
-1.RAW Original cropped plate image without additional enhancement.
+- RAW Original cropped plate image without additional enhancement.
 
-2.CLAHE-light Contrast Limited Adaptive Histogram Equalization with conservative parameters to improve local contrast without distorting character shapes.
+- CLAHE-light Contrast Limited Adaptive Histogram Equalization with conservative parameters to improve local contrast without distorting character shapes.
 
-3.SR2× + CLAHE-light Lightweight 2× upscaling (bicubic interpolation) followed by CLAHE-light, designed for small or low-resolution plates.
+- SR2× + CLAHE-light Lightweight 2× upscaling (bicubic interpolation) followed by CLAHE-light, designed for small or low-resolution plates.
 
-4. Each variant is processed independently by PaddleOCR.
+- Each variant is processed independently by PaddleOCR.
 
 🔍 Plate-Aware OCR Selection
 
 For each license plate, multiple OCR candidates are generated. The final output is selected using a plate-aware scoring mechanism based on:
 
-1.Structural validity of license plate format
+- Structural validity of license plate format
 
-2.Character ambiguity resolution (e.g., O–0, I–1, B–8)
+- Character ambiguity resolution (e.g., O–0, I–1, B–8)
 
-3.OCR confidence score
+- OCR confidence score
 
 This adaptive selection strategy improves end-to-end recognition accuracy without aggressive visual enhancement.
 
@@ -57,21 +57,21 @@ This adaptive selection strategy improves end-to-end recognition accuracy withou
 
 - 98.45% average character accuracy
 
-These results outperform fixed preprocessing baselines such as direct crop OCR and super-resolution-only pipelines under hazy conditions.
+- These results outperform fixed preprocessing baselines such as direct crop OCR and super-resolution-only pipelines under hazy condition.
 
 ⚙️ Environment Setup Python >= 3.9 opencv-python paddleocr paddlepaddle torch numpy
 
 ⚠️ Note: The project is tested on GPU-based environments. 
 
 ▶️ How to Run
-1. Processing with Dark Chanel Prior (DCP),Detect and crop license plates 
-   processing DCP and Yolov11.ipynb
+- Processing with Dark Chanel Prior (DCP),Detect and crop license plates 
+  processing DCP and Yolov11.ipynb
 
-2.Apply adaptive enhancement and Select final OCR result
+- Apply adaptive enhancement and Select final OCR result
   Adaptive-Aware-Selection.ipynb
-  
-3.Evaluate performance
-Adaptive-Aware-Selection.ipynb
+
+- Evaluate performance
+  Adaptive-Aware-Selection.ipynb
 
 📁 Dataset
 
